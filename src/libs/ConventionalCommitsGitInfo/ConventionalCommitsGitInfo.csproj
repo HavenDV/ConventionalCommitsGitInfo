@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet">
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <Description>MSBuild props for automatic version inference based on commits in the Conventional Commits spec</Description>
+    <PackageTags>conventional commits;msbuild;automatic versioning</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="build/*.*" Pack="true" PackagePath="build" />
+    <None Include="buildMultiTargeting/$(AssemblyName).targets" Pack="true" PackagePath="buildMultiTargeting" />
+    <None Include="buildTransitive/$(AssemblyName).targets" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+  
+</Project>

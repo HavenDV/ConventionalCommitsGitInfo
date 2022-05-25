@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32505.426
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5ED9F27-FAE0-45B7-84F9-9D6C35C7E1AC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.github\ISSUE_TEMPLATE\bug-report.yaml = .github\ISSUE_TEMPLATE\bug-report.yaml
+		src\Directory.Build.props = src\Directory.Build.props
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\FUNDING.yml = .github\FUNDING.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{77D138D9-459E-4A17-8FAE-646E51EBCAC9}"
+	ProjectSection(SolutionItems) = preProject
+		src\libs\Directory.Build.props = src\libs\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConventionalCommitsGitInfo", "src\libs\ConventionalCommitsGitInfo\ConventionalCommitsGitInfo.csproj", "{7A858826-73B2-4FE2-A5BD-E2362E825C72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A858826-73B2-4FE2-A5BD-E2362E825C72} = {77D138D9-459E-4A17-8FAE-646E51EBCAC9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93849B01-5244-46B3-9C92-6DE66CBE4E8B}
+	EndGlobalSection
+EndGlobal
