@@ -62,4 +62,24 @@ public class TaskTests
 
         result.Should().BeTrue();
     }
+
+    [TestMethod]
+    public void SetGitExeExecutesCorrectly()
+    {
+        var task = new SetGitExe
+        {
+            BuildEngine = BuildEngine!.Object,
+        };
+        var result = task.Execute();
+
+        Errors.Should().BeEmpty();
+        Warnings.Should().BeEmpty();
+        Messages.Should().NotBeEmpty();
+
+        result.Should().BeTrue();
+
+        task.Path.Should().NotBeEmpty();
+
+        Console.WriteLine($"Git path: {task.Path}");
+    }
 }
