@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{77D138D9-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConventionalCommitsGitInfo", "src\libs\ConventionalCommitsGitInfo\ConventionalCommitsGitInfo.csproj", "{7A858826-73B2-4FE2-A5BD-E2362E825C72}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4D5F468F-9733-4CF7-A678-A7F6ACA7F660}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConventionalCommitsGitInfo.IntegrationTests", "src\tests\ConventionalCommitsGitInfo.IntegrationTests\ConventionalCommitsGitInfo.IntegrationTests.csproj", "{5B1EA01F-306C-43B5-8490-8EC172756BD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,12 +35,17 @@ Global
 		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A858826-73B2-4FE2-A5BD-E2362E825C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1EA01F-306C-43B5-8490-8EC172756BD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1EA01F-306C-43B5-8490-8EC172756BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1EA01F-306C-43B5-8490-8EC172756BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1EA01F-306C-43B5-8490-8EC172756BD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7A858826-73B2-4FE2-A5BD-E2362E825C72} = {77D138D9-459E-4A17-8FAE-646E51EBCAC9}
+		{5B1EA01F-306C-43B5-8490-8EC172756BD8} = {4D5F468F-9733-4CF7-A678-A7F6ACA7F660}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93849B01-5244-46B3-9C92-6DE66CBE4E8B}

@@ -15,10 +15,21 @@
     <PackageTags>conventional commits;msbuild;automatic versioning</PackageTags>
   </PropertyGroup>
 
+  <ItemGroup Label="GlobalUsings">
+    <Using Include="Microsoft.Build.Framework" />
+    <Using Include="Microsoft.Build.Utilities" />
+    <Using Include="Microsoft.Build.Tasks" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="build/*.*" Pack="true" PackagePath="build" />
     <None Include="buildMultiTargeting/$(AssemblyName).targets" Pack="true" PackagePath="buildMultiTargeting" />
     <None Include="buildTransitive/$(AssemblyName).targets" Pack="true" PackagePath="buildTransitive" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.2.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.2.0" />
   </ItemGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
