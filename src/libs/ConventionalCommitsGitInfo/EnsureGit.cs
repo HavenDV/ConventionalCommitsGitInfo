@@ -8,7 +8,7 @@ public class EnsureGit : Task, ICancelableTask
     [Required]
     public string GitMinVersion { get; set; } = string.Empty;
 
-    private GitVersion? GitVersionTask { get; set; }
+    private GitExec? GitVersionTask { get; set; }
     private bool IsCancelled { get; set; }
 
     public void Cancel()
@@ -24,7 +24,7 @@ public class EnsureGit : Task, ICancelableTask
             return false;
         }
 
-        GitVersionTask = new GitVersion
+        GitVersionTask = new GitExec("--version")
         {
             BuildEngine = BuildEngine,
         };

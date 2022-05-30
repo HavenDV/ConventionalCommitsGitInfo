@@ -7,7 +7,7 @@ namespace ConventionalCommitsGitInfo;
 /// </summary>
 public class SetGitExe : Task, ICancelableTask
 {
-    private GitVersion? GitVersionTask { get; set; }
+    private GitExec? GitVersionTask { get; set; }
     private bool IsCancelled { get; set; }
 
     [Output]
@@ -35,7 +35,7 @@ public class SetGitExe : Task, ICancelableTask
         switch (Environment.OSVersion.Platform)
         {
             case PlatformID.Win32NT:
-                GitVersionTask = new GitVersion
+                GitVersionTask = new GitExec("--version")
                 {
                     BuildEngine = BuildEngine,
                     IgnoreExitCode = true,

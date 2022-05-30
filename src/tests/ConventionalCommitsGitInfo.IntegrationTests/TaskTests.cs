@@ -32,7 +32,7 @@ public class TaskTests
     [TestMethod]
     public void GitVersionExecutesCorrectly()
     {
-        var task = new GitVersion
+        var task = new GitExec("--version")
         {
             BuildEngine = BuildEngine!.Object,
         };
