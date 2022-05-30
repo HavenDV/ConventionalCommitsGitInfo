@@ -5,9 +5,9 @@ using Moq;
 namespace H.Generators.IntegrationTests;
 
 [TestClass]
-public class TaskTests
+public class GitExecTests
 {
-    private static void BaseTest(ITask task)
+    public static string BaseTest(string arguments)
     {
         var buildEngine = new Mock<IBuildEngine>();
         var errors = new List<BuildErrorEventArgs>();
@@ -23,7 +23,10 @@ public class TaskTests
             .Setup(static x => x.LogErrorEvent(It.IsAny<BuildErrorEventArgs>()))
             .Callback<BuildErrorEventArgs>(errors.Add);
 
-        task.BuildEngine = buildEngine.Object;
+        var task = new GitExec(arguments)
+        {
+            BuildEngine = buildEngine.Object,
+        };
         var result = task.Execute();
 
         errors.Should().BeEmpty();
@@ -31,26 +34,40 @@ public class TaskTests
         messages.Should().NotBeEmpty();
 
         result.Should().BeTrue();
+
+        task.ExitCode.Should().Be(0);
+        return task.FullConsoleOutput;
     }
 
     [TestMethod]
-    public void EnsureGitExecutesCorrectly()
+    public void GitVersionExecutesCorrectly()
     {
-        var task = new EnsureGit
-        {
-            GitMinVersion = "2.5.0",
-        };
-        BaseTest(task);
+        var output = BaseTest("--version");
+
+        output.Should().StartWith("git version");
     }
 
     [TestMethod]
-    public void SetGitExeExecutesCorrectly()
+    public void GitShowTopLevelExecutesCorrectly()
     {
-        var task = new SetGitExe();
-        BaseTest(task);
+        var output = BaseTest("rev-parse --show-toplevel");
 
-        task.Path.Should().NotBeEmpty();
+        output.Should().NotBeEmpty();
+    }
 
-        Console.WriteLine($"Git path: {task.Path}");
+    [TestMethod]
+    public void GitIsInsideWorkTreeExecutesCorrectly()
+    {
+        var output = BaseTest("rev-parse --is-inside-work-tree");
+
+        output.Should().Be("true");
+    }
+
+    [TestMethod]
+    public void GitCommonDirExecutesCorrectly()
+    {
+        var output = BaseTest("rev-parse --git-common-dir");
+
+        output.Should().EndWith(".git");
     }
 }
