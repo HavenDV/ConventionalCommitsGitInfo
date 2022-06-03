@@ -11,5 +11,6 @@ public class GitExec : Exec
         StandardErrorImportance = "high";
         StandardOutputImportance = "low";
         Command = $"git {arguments}";
+        StdOutEncoding = "utf-8";
     }
 }

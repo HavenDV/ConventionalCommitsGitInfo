@@ -45,6 +45,8 @@ public class GitExecTests
         var output = BaseTest("--version");
 
         output.Should().StartWith("git version");
+
+        Console.WriteLine($"Output: {output}");
     }
 
     [TestMethod]
@@ -53,6 +55,8 @@ public class GitExecTests
         var output = BaseTest("rev-parse --show-toplevel");
 
         output.Should().NotBeEmpty();
+
+        Console.WriteLine($"Output: {output}");
     }
 
     [TestMethod]
@@ -61,6 +65,8 @@ public class GitExecTests
         var output = BaseTest("rev-parse --is-inside-work-tree");
 
         output.Should().Be("true");
+
+        Console.WriteLine($"Output: {output}");
     }
 
     [TestMethod]
@@ -69,5 +75,47 @@ public class GitExecTests
         var output = BaseTest("rev-parse --git-common-dir");
 
         output.Should().EndWith(".git");
+
+        Console.WriteLine($"Output: {output}");
+    }
+
+    [TestMethod]
+    public void GitConfigRemoteUrlExecutesCorrectly()
+    {
+        var output = BaseTest("config --get remote.origin.url");
+
+        output.Should().StartWith("https://");
+
+        Console.WriteLine($"Output: {output}");
+    }
+
+    [TestMethod]
+    public void GitShowCommitDateExecutesCorrectly()
+    {
+        var output = BaseTest("show --format=%%cI -s");
+
+        output.Should().NotBeEmpty();
+        
+        Console.WriteLine($"Output: {output}");
+    }
+
+    [TestMethod]
+    public void GitShowSignatureShortExecutesCorrectly()
+    {
+        var output = BaseTest("-c log.showSignature=false log --format=format:%%h -n 1");
+
+        output.Should().NotBeEmpty();
+
+        Console.WriteLine($"Output: {output}");
+    }
+
+    [TestMethod]
+    public void GitShowSignatureLongExecutesCorrectly()
+    {
+        var output = BaseTest("-c log.showSignature=false log --format=format:%%H -n 1");
+
+        output.Should().NotBeEmpty();
+
+        Console.WriteLine($"Output: {output}");
     }
 }
