@@ -72,11 +72,11 @@ public class GitVersion : Task, ICancelableTask
         return @$"⭐ Last 10 features:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFeature)
-    .Select(static commit => $"{commit.Date:d}: {commit.Message}"))}
+    .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}
 🐞 Last 10 bug fixes:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFix)
-    .Select(static commit => $"{commit.Date:d}: {commit.Message}"))}";
+    .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}";
     }
 
     public string RunShowSignatureShort(string format)
