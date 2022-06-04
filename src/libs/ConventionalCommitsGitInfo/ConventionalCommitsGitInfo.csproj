@@ -1,16 +1,15 @@
-﻿<Project>
-
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net6.0;net4.7.2</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <Version>0.1.0</Version>
+    <NoWarn>$(NoWarn);NU5100;NU5128;CA1056</NoWarn>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
     <IncludeSymbols>false</IncludeSymbols>
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
     <Description>MSBuild props for automatic version inference based on commits in the Conventional Commits spec</Description>
     <PackageTags>conventional commits;msbuild;automatic versioning</PackageTags>
   </PropertyGroup>
@@ -32,19 +31,5 @@
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.2.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.2.0" />
   </ItemGroup>
-
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-
-  <Import Project="build/ConventionalCommitsGitInfo.targets" />
-
-  <Target Name="SetSemanticVersion" BeforeTargets="PrepareForBuild" Condition="$(GitSemVerMajor) != '' AND $(GitSemVerMinor) != '' AND $(GitSemVerPatch) != ''">
-    <PropertyGroup>
-      <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</Version>
-      <FileVersion>$(Version)</FileVersion>
-      <PackageVersion>$(Version)</PackageVersion>
-    </PropertyGroup>
-
-    <Message Importance="high" Text="Set Semantic Version: $(Version)" />
-  </Target>
 
 </Project>

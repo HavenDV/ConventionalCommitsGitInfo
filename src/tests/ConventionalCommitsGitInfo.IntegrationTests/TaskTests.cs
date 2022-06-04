@@ -117,4 +117,15 @@ public class TaskTests
         Console.WriteLine($"Commit: {task.Commit}");
         Console.WriteLine($"Sha: {task.Sha}");
     }
+
+    [TestMethod]
+    public void GitVersionExecutesCorrectly()
+    {
+        var task = new GitVersion();
+        BaseTest(task);
+
+        task.Version.Minor.Should().NotBe(1);
+
+        Console.WriteLine($"Version: {task.Version}");
+    }
 }
