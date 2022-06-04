@@ -34,7 +34,18 @@ public class GitVersion : Task, ICancelableTask
         var baseCommit = RunShowSignatureShort("%%h");
         var commits = RunCommits(baseCommit);
 
-        var version = BaseVersion;
+        Version = CalculateVersion(commits.Reverse().ToArray(), BaseVersion);
+        ReleaseNotes = CreateReleaseNotes(commits);
+
+        return true;
+    }
+
+    public static Version CalculateVersion(IReadOnlyCollection<CommitData> commits, Version fromVersion)
+    {
+        commits = commits ?? throw new ArgumentNullException(nameof(commits));
+        fromVersion = fromVersion ?? throw new ArgumentNullException(nameof(fromVersion));
+
+        var version = fromVersion;
         foreach (var commit in commits)
         {
             if (commit.IsBreakingChange)
@@ -50,18 +61,22 @@ public class GitVersion : Task, ICancelableTask
                 version = new Version(version.Major, version.Minor, version.Build + 1);
             }
         }
-        Version = version;
 
-        ReleaseNotes = @$"⭐ Last 10 features:
+        return version;
+    }
+
+    public static string CreateReleaseNotes(IReadOnlyCollection<CommitData> commits)
+    {
+        commits = commits ?? throw new ArgumentNullException(nameof(commits));
+
+        return @$"⭐ Last 10 features:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFeature)
-    .Select(static commit => $"{commit.Date}: {commit.Message}"))}
+    .Select(static commit => $"{commit.Date:d}: {commit.Message}"))}
 🐞 Last 10 bug fixes:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFix)
-    .Select(static commit => $"{commit.Date}: {commit.Message}"))}";
-
-        return true;
+    .Select(static commit => $"{commit.Date:d}: {commit.Message}"))}";
     }
 
     public string RunShowSignatureShort(string format)
