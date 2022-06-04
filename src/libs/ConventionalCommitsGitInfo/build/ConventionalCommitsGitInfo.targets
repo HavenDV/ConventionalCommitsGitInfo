@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <Message Importance="high" Text="Set Semantic Version: $(Version)" />
-    <Message Importance="high" Text="Release Notes: $(ReleaseNotes)" />
+    <Message Importance="high" Text="Release Notes: $(PackageReleaseNotes)" />
   </Target>
 
 </Project>
