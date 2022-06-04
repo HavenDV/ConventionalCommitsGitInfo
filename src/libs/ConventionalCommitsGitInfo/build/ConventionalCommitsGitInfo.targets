@@ -18,7 +18,7 @@
       <Version>$(_Version)</Version>
       <FileVersion>$(Version)</FileVersion>
       <PackageVersion>$(Version)</PackageVersion>
-      <PackageReleaseNotes>$(ReleaseNotes)</PackageReleaseNotes>
+      <PackageReleaseNotes>$(_ReleaseNotes)</PackageReleaseNotes>
     </PropertyGroup>
 
     <Message Importance="high" Text="Set Semantic Version: $(Version)" />

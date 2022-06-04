@@ -53,9 +53,13 @@ public class GitVersion : Task, ICancelableTask
         Version = version;
 
         ReleaseNotes = @$"⭐ Last 10 features:
-{string.Join(Environment.NewLine, commits.Where(static commit => commit.IsFeature).Select(static commit => commit.Message))}
+{string.Join(Environment.NewLine, commits
+    .Where(static commit => commit.IsFeature)
+    .Select(static commit => $"{commit.Date}: {commit.Message}"))}
 🐞 Last 10 bug fixes:
-{string.Join(Environment.NewLine, commits.Where(static commit => commit.IsFix).Select(static commit => commit.Message))}";
+{string.Join(Environment.NewLine, commits
+    .Where(static commit => commit.IsFix)
+    .Select(static commit => $"{commit.Date}: {commit.Message}"))}";
 
         return true;
     }
@@ -79,7 +83,7 @@ public class GitVersion : Task, ICancelableTask
 
     public IReadOnlyCollection<CommitData> RunCommits(string baseCommit)
     {
-        ActiveTask = new GitExec($"rev-list --max-count 10 {baseCommit} --pretty --date=iso-strict")
+        ActiveTask = new GitExec($"rev-list {baseCommit} --pretty --date=iso-strict")
         {
             BuildEngine = BuildEngine,
             IgnoreExitCode = true,
