@@ -11,15 +11,18 @@
   <Target Name="SetSemanticVersion" BeforeTargets="PrepareForBuild">
     <GitVersion>
       <Output TaskParameter="VersionString" PropertyName="_Version" />
+      <Output TaskParameter="ReleaseNotes" PropertyName="_ReleaseNotes" />
     </GitVersion>
 
     <PropertyGroup>
       <Version>$(_Version)</Version>
       <FileVersion>$(Version)</FileVersion>
       <PackageVersion>$(Version)</PackageVersion>
+      <PackageReleaseNotes>$(ReleaseNotes)</PackageReleaseNotes>
     </PropertyGroup>
 
     <Message Importance="high" Text="Set Semantic Version: $(Version)" />
+    <Message Importance="high" Text="Release Notes: $(ReleaseNotes)" />
   </Target>
 
 </Project>

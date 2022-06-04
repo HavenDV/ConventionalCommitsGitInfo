@@ -9,7 +9,7 @@ public class CommitData
     public DateTime Date { get; set; }
     public string Message { get; set; } = string.Empty;
 
-    public bool IsPatch =>
+    public bool IsFix =>
         Message.StartsWith("fix(") ||
         Message.StartsWith("fix:");
 

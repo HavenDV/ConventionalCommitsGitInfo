@@ -15,6 +15,9 @@ public class GitVersion : Task, ICancelableTask
     [Output]
     public string VersionString => $"{Version}";
 
+    [Output]
+    public string ReleaseNotes { get; set; } = string.Empty;
+
     public void Cancel()
     {
         IsCancelled = true;
@@ -42,12 +45,17 @@ public class GitVersion : Task, ICancelableTask
             {
                 version = new Version(version.Major, version.Minor + 1, 0);
             }
-            else if (commit.IsPatch)
+            else if (commit.IsFix)
             {
                 version = new Version(version.Major, version.Minor, version.Build + 1);
             }
         }
         Version = version;
+
+        ReleaseNotes = @$"⭐ Last 10 features:
+{string.Join(Environment.NewLine, commits.Where(static commit => commit.IsFeature).Select(static commit => commit.Message))}
+🐞 Last 10 bug fixes:
+{string.Join(Environment.NewLine, commits.Where(static commit => commit.IsFix).Select(static commit => commit.Message))}";
 
         return true;
     }
