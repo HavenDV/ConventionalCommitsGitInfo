@@ -124,8 +124,6 @@ public class TaskTests
         var task = new GitVersion();
         BaseTest(task);
 
-        task.Version.Minor.Should().NotBe(1);
-
         Console.WriteLine($"Version: {task.Version}");
     }
 }
