@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="NuGet">
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <NoWarn>$(NoWarn);NU5100;NU5128;CA1056</NoWarn>
     <DevelopmentDependency>true</DevelopmentDependency>
     <IncludeSymbols>false</IncludeSymbols>
@@ -27,9 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build" Version="17.2.0" />
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.2.0" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.2.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.2.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
