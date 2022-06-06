@@ -6,6 +6,9 @@ public class CommitData
     public string Author { get; set; } = string.Empty;
     public DateTime Date { get; set; }
     public string Message { get; set; } = string.Empty;
+    public string MessageWithoutType => Message
+        .Replace("fix: ", "")
+        .Replace("feat: ", "");
 
     public bool IsFix =>
         Message.StartsWith("fix(") ||

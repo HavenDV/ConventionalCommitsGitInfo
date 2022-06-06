@@ -78,12 +78,12 @@ public class GitVersion : Task, ICancelableTask
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFeature)
     .Take(count)
-    .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}
+    .Select(static commit => $"{commit.MessageWithoutType}"))}
 🐞 Last 10 bug fixes:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFix)
     .Take(count)
-    .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}";
+    .Select(static commit => $"{commit.MessageWithoutType}"))}";
     }
 
     public IReadOnlyCollection<CommitData> RunCommits(string baseCommit)
