@@ -11,6 +11,8 @@ Default settings are shown here:
         <ConventionalCommitsGitInfo_BaseCommit></ConventionalCommitsGitInfo_BaseCommit>
         <!-- Maximum number of countable commits per category. -->
         <ConventionalCommitsGitInfo_ReleaseNotesCount>10</ConventionalCommitsGitInfo_ReleaseNotesCount>
+        <!-- Indicates the importance of messages. Use for debugging. -->
+        <ConventionalCommitsGitInfo_MessageImportance>low</ConventionalCommitsGitInfo_MessageImportance>
     </PropertyGroup>
   </Target>
 ```
