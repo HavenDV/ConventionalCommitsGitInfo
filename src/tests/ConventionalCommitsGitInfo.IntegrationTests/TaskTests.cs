@@ -131,9 +131,11 @@ public class TaskTests
         {
             BaseVersion = "0.1.0",
             BaseCommit = "9d943258ab8d2c578d97260b8f82eb14118c675e",
+            ReleaseNotesCount = 10,
         };
         BaseTest(task);
 
         Console.WriteLine($"Version: {task.Version}");
+        Console.WriteLine($"Release Notes: {task.ReleaseNotes}");
     }
 }

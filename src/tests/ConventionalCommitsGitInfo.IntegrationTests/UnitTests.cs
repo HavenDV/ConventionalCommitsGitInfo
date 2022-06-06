@@ -72,7 +72,7 @@ public class UnitTests
             },
         };
 
-        var releaseNotes = GitVersion.CreateReleaseNotes(commits);
+        var releaseNotes = GitVersion.CreateReleaseNotes(commits, 10);
 
         releaseNotes.Should().Be(@"⭐ Last 10 features:
 01/01/0001: feat: Feat 1

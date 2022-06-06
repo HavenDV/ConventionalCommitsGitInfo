@@ -11,6 +11,8 @@ public class GitVersion : Task, ICancelableTask
 
     public string BaseCommit { get; set; } = string.Empty;
 
+    public int ReleaseNotesCount { get; set; }
+
     [Output]
     public string Version { get; set; } = string.Empty;
 
@@ -30,12 +32,15 @@ public class GitVersion : Task, ICancelableTask
             return false;
         }
 
-        var commits = RunCommits(BaseCommit);
+        var commits = RunCommits("");
 
         var baseVersion = new Version(BaseVersion);
-        var version = CalculateVersion(commits.Reverse().ToArray(), baseVersion);
+        var version = CalculateVersion(commits
+            .TakeWhile(commit => !commit.Commit.StartsWith(BaseCommit))
+            .Reverse()
+            .ToArray(), baseVersion);
         Version = $"{version}";
-        ReleaseNotes = CreateReleaseNotes(commits);
+        ReleaseNotes = CreateReleaseNotes(commits, ReleaseNotesCount);
 
         return true;
     }
@@ -65,17 +70,19 @@ public class GitVersion : Task, ICancelableTask
         return version;
     }
 
-    public static string CreateReleaseNotes(IReadOnlyCollection<CommitData> commits)
+    public static string CreateReleaseNotes(IReadOnlyCollection<CommitData> commits, int count)
     {
         commits = commits ?? throw new ArgumentNullException(nameof(commits));
 
         return @$"⭐ Last 10 features:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFeature)
+    .Take(count)
     .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}
 🐞 Last 10 bug fixes:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFix)
+    .Take(count)
     .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}";
     }
 
