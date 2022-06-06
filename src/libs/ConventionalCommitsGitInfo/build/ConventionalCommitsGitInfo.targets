@@ -8,9 +8,16 @@
 
   <UsingTask TaskName="ConventionalCommitsGitInfo.GitVersion" AssemblyFile="$(TaskAssembly)" />
 
+  <PropertyGroup>
+    <ConventionalCommitsGitInfo_BaseVersion>0.1.0</ConventionalCommitsGitInfo_BaseVersion>
+    <ConventionalCommitsGitInfo_BaseCommit></ConventionalCommitsGitInfo_BaseCommit>
+  </PropertyGroup>
+
   <Target Name="SetSemanticVersion" BeforeTargets="PrepareForBuild">
-    <GitVersion>
-      <Output TaskParameter="VersionString" PropertyName="_Version" />
+    <GitVersion 
+      BaseCommit="$(ConventionalCommitsGitInfo_BaseCommit)" 
+      BaseVersion="$(ConventionalCommitsGitInfo_BaseVersion)">
+      <Output TaskParameter="Version" PropertyName="_Version" />
       <Output TaskParameter="ReleaseNotes" PropertyName="_ReleaseNotes" />
     </GitVersion>
 

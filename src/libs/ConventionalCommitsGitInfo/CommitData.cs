@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace ConventionalCommitsGitInfo;
+﻿namespace ConventionalCommitsGitInfo;
 
 public class CommitData
 {
@@ -19,21 +17,17 @@ public class CommitData
 
     public bool IsBreakingChange =>
         Message.StartsWith("BREAKING CHANGE(") ||
-        Message.StartsWith("BREAKING CHANGE:") ||
-        Message.Contains('!');
+        Message.StartsWith("BREAKING CHANGE:");
+        //Message.Contains('!');
 
     public static CommitData Parse(string text)
     {
         text = text ?? throw new ArgumentNullException(nameof(text));
 
-        var lines = text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
         return new CommitData
         {
-            Commit = lines.ElementAt(0).Substring(7),
-            Author = lines.ElementAt(1).Substring(8),
-            Date = DateTime.Parse(lines.ElementAt(2).Substring(8), CultureInfo.InvariantCulture),
-            Message = lines.ElementAt(3),
+            Commit = text.Substring(0, 40),
+            Message = text.Substring(41),
         };
     }
 }

@@ -7,13 +7,12 @@ public class GitVersion : Task, ICancelableTask
     private GitExec? ActiveTask { get; set; }
     private bool IsCancelled { get; set; }
 
-    public Version BaseVersion { get; set; } = new(0, 1, 0);
+    public string BaseVersion { get; set; } = string.Empty;
+
+    public string BaseCommit { get; set; } = string.Empty;
 
     [Output]
-    public Version Version { get; set; } = new(0, 1, 0);
-
-    [Output]
-    public string VersionString => $"{Version}";
+    public string Version { get; set; } = string.Empty;
 
     [Output]
     public string ReleaseNotes { get; set; } = string.Empty;
@@ -31,21 +30,22 @@ public class GitVersion : Task, ICancelableTask
             return false;
         }
 
-        var baseCommit = RunShowSignatureShort("%%h");
-        var commits = RunCommits(baseCommit);
+        var commits = RunCommits(BaseCommit);
 
-        Version = CalculateVersion(commits.Reverse().ToArray(), BaseVersion);
+        var baseVersion = new Version(BaseVersion);
+        var version = CalculateVersion(commits.Reverse().ToArray(), baseVersion);
+        Version = $"{version}";
         ReleaseNotes = CreateReleaseNotes(commits);
 
         return true;
     }
 
-    public static Version CalculateVersion(IReadOnlyCollection<CommitData> commits, Version fromVersion)
+    public static Version CalculateVersion(IReadOnlyCollection<CommitData> commits, Version baseVersion)
     {
         commits = commits ?? throw new ArgumentNullException(nameof(commits));
-        fromVersion = fromVersion ?? throw new ArgumentNullException(nameof(fromVersion));
+        baseVersion = baseVersion ?? throw new ArgumentNullException(nameof(baseVersion));
 
-        var version = fromVersion;
+        var version = baseVersion;
         foreach (var commit in commits)
         {
             if (commit.IsBreakingChange)
@@ -79,26 +79,14 @@ public class GitVersion : Task, ICancelableTask
     .Select(static commit => $"{commit.Date:MM/dd/yyyy}: {commit.Message}"))}";
     }
 
-    public string RunShowSignatureShort(string format)
-    {
-        ActiveTask = new GitExec($"-c log.showSignature=false log --format=format:{format} -n 1")
-        {
-            BuildEngine = BuildEngine,
-            IgnoreExitCode = true,
-            StandardErrorImportance = "low",
-        };
-        if (!ActiveTask.Execute() ||
-            ActiveTask.ExitCode != 0)
-        {
-            return "0000000";
-        }
-
-        return ActiveTask.FullConsoleOutput;
-    }
-
     public IReadOnlyCollection<CommitData> RunCommits(string baseCommit)
     {
-        ActiveTask = new GitExec($"rev-list {baseCommit} --pretty --date=iso-strict")
+        var arguments = "log --pretty=oneline --no-decorate --date=iso-strict";
+        if (!string.IsNullOrWhiteSpace(baseCommit))
+        {
+            arguments += $" {baseCommit}..";
+        }
+        ActiveTask = new GitExec(arguments)
         {
             BuildEngine = BuildEngine,
             IgnoreExitCode = true,
@@ -110,20 +98,9 @@ public class GitVersion : Task, ICancelableTask
             return Array.Empty<CommitData>();
         }
 
-        var lines = ActiveTask.FullConsoleOutput.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-        var commits = new List<CommitData>();
-        for (var i = 0; i < lines.Length; i += 4)
-        {
-            var text = string.Join(
-                Environment.NewLine,
-                lines[i],
-                lines[i + 1],
-                lines[i + 2],
-                lines[i + 3]);
-
-            commits.Add(CommitData.Parse(text));
-        }
-
-        return commits;
+        return ActiveTask.FullConsoleOutput
+            .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(CommitData.Parse)
+            .ToArray();
     }
 }
