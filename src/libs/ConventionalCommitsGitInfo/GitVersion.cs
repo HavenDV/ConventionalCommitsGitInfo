@@ -36,7 +36,7 @@ public class GitVersion : Task, ICancelableTask
 
         var baseVersion = new Version(BaseVersion);
         var version = CalculateVersion(commits
-            .TakeWhile(commit => !commit.Commit.StartsWith(BaseCommit))
+            .TakeWhile(commit => string.IsNullOrWhiteSpace(BaseCommit) || !commit.Commit.StartsWith(BaseCommit))
             .Reverse()
             .ToArray(), baseVersion);
         Version = $"{version}";
