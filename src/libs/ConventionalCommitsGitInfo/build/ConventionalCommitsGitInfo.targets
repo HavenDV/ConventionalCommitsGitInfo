@@ -37,7 +37,8 @@
 
     <Message Importance="$(ConventionalCommitsGitInfo_MessageImportance)" Text="You are using ConventionalCommitsGitInfo. Your properties will be set automatically:" />
     <Message Importance="$(ConventionalCommitsGitInfo_MessageImportance)" Text="Version: $(Version)" />
-    <Message Importance="$(ConventionalCommitsGitInfo_MessageImportance)" Text="Release Notes:/n$(PackageReleaseNotes)" />
+    <Message Importance="$(ConventionalCommitsGitInfo_MessageImportance)" Text="Release Notes:" />
+    <Message Importance="$(ConventionalCommitsGitInfo_MessageImportance)" Text="$(PackageReleaseNotes)" />
   </Target>
 
 </Project>
