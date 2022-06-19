@@ -19,7 +19,7 @@
     <ConventionalCommitsGitInfo_MessageImportance>low</ConventionalCommitsGitInfo_MessageImportance>
   </PropertyGroup>
 
-  <Target Name="SetSemanticVersion" BeforeTargets="PrepareForBuild">
+  <Target Name="SetSemanticVersion" BeforeTargets="PrepareForBuild;DispatchToInnerBuilds">
     <GitVersion 
       BaseCommit="$(ConventionalCommitsGitInfo_BaseCommit)" 
       BaseVersion="$(ConventionalCommitsGitInfo_BaseVersion)"
