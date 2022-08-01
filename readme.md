@@ -15,7 +15,8 @@ specifications:
 - For each `BREAKING CHANGE:` the major version will be increased
 - For each `feat:` the minor version will be increased
 - For each `fix:` the patch version will be increased
-There are two behaviors here, for new libraries with no commit history, and for adapting old libraries.
+
+There are two behaviors here, for new libraries with no commit history, and for adapting old libraries:
 1. For new libraries versioning starts from version `0.1.0`.
 2. For older versions, you need to specify the commit ID from which versioning will start and the base version.
 PackageReleaseNotes will contain text like this:
