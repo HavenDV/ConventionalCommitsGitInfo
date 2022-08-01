@@ -19,6 +19,7 @@ specifications:
 There are two behaviors here, for new libraries with no commit history, and for adapting old libraries:
 1. For new libraries versioning starts from version `0.1.0`.
 2. For older versions, you need to specify the commit ID from which versioning will start and the base version.
+
 `PackageReleaseNotes` will contain text like this:
 ```
 ⭐ Last 10 features:
