@@ -36,7 +36,7 @@ Fixed issues with BindEvents after detection feature.
 [![NuGet](https://img.shields.io/nuget/dt/ConventionalCommitsGitInfo.svg?style=flat-square&label=ConventionalCommitsGitInfo)](https://www.nuget.org/packages/ConventionalCommitsGitInfo/)
 
 ```
-Install-Package H.IpInfo
+Install-Package ConventionalCommitsGitInfo
 ```
 
 ## Settings
