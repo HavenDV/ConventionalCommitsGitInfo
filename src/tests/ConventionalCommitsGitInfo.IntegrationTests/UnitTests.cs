@@ -78,7 +78,7 @@ public class UnitTests
 Feat 1
 Feat 2
 Feat 3
-🐞 Last 10 bug fixes:
+🐞 Last 10 fixes:
 Fix 1
 Fix 2
 Fix 3");
