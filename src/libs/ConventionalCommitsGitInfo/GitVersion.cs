@@ -74,12 +74,12 @@ public class GitVersion : Task, ICancelableTask
     {
         commits = commits ?? throw new ArgumentNullException(nameof(commits));
 
-        return @$"⭐ Last 10 features:
+        return @$"⭐ Last {count} features:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFeature)
     .Take(count)
     .Select(static commit => $"{commit.MessageWithoutType}"))}
-🐞 Last 10 bug fixes:
+🐞 Last {count} fixes:
 {string.Join(Environment.NewLine, commits
     .Where(static commit => commit.IsFix)
     .Take(count)
